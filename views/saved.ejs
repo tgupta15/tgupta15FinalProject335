@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>SubstiBake - Saved Substitutions</title>
+
+    <link rel="stylesheet" href="/styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <h1>SubstiBake</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/saved">Saved substitutions</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>Saved substitutions</h2>
+
+            <% if (!saved || saved.length===0) { %>
+                <p>You haven't saved any substitutions yet.</p>
+                <% } else { %>
+                    <form action="/saved/deleteAll" method="POST"
+                        onsubmit="return confirm('Delete ALL saved substitutions?');">
+                        <button type="submit">Delete all saved substitutions</button>
+                    </form>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Substitutions</th>
+                                <th>Saved on</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% saved.forEach(function(item) { %>
+                                <tr>
+                                    <td>
+                                        <%= item.ingredientName %>
+                                    </td>
+                                    <td>
+                                        <%= item.substitutionText %>
+                                    </td>
+                                    <td>
+                                        <%= item.createdAt.toLocaleString() %>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <% } %>
+        </section>
+    </main>
+
+    <footer>
+        <p>SubstiBake &copy; <%= new Date().getFullYear() %>
+        </p>
+    </footer>
+</body>
+
+</html>
